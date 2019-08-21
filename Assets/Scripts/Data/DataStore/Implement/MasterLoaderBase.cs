@@ -10,6 +10,11 @@ namespace CAFU.MasterLoader.Data.DataStore.Implement
             Asset = asset;
         }
 
-        protected T Asset { get; }
+        private T Asset { get; }
+
+        public T Get()
+        {
+            return Asset;
+        }
     }
 }
