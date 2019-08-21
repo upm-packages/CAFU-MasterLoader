@@ -16,17 +16,17 @@ namespace CAFU.MasterLoader.Data.DataStore.Implement
 
         private IEnumerable<T> Assets { get; }
 
-        protected T Find(int index)
+        public T Find(int index)
         {
             return Assets.ElementAt(index);
         }
 
-        protected T Find<TKey>(TKey key, Func<T, TKey> keySelector)
+        public T Find<TKey>(TKey key, Func<T, TKey> keySelector)
         {
             return Assets.First(x => keySelector(x).Equals(key));
         }
 
-        protected IEnumerable<T> FindAll<TKey>(TKey key, Func<T, TKey> keySelector)
+        public IEnumerable<T> FindAll<TKey>(TKey key, Func<T, TKey> keySelector)
         {
             return Assets.Where(x => keySelector(x).Equals(key));
         }
