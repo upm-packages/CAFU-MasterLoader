@@ -21,14 +21,29 @@ namespace CAFU.MasterLoader.Data.DataStore.Implement
             return Assets.ElementAt(index);
         }
 
+        public T Find(Func<T, bool> predicate)
+        {
+            return Assets.First(predicate);
+        }
+
         public T Find<TKey>(TKey key, Func<T, TKey> keySelector)
         {
             return Assets.First(x => keySelector(x).Equals(key));
         }
 
+        public IEnumerable<T> FindAll()
+        {
+            return Assets;
+        }
+
         public IEnumerable<T> FindAll<TKey>(TKey key, Func<T, TKey> keySelector)
         {
             return Assets.Where(x => keySelector(x).Equals(key));
+        }
+
+        public IEnumerable<T> FindAll(Func<T, bool> predicate)
+        {
+            return Assets.Where(predicate);
         }
 
         int IElementCountable.Count()
