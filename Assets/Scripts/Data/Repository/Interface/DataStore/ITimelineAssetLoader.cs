@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine.Timeline;
@@ -19,6 +20,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         TimelineAsset Load(int index);
     }
 
+    public interface IConditionalTimelineAssetLoader
+    {
+        TimelineAsset Load(Func<TimelineAsset, bool> predicate);
+    }
+
     public interface ITimelineAssetsLoader
     {
         IEnumerable<TimelineAsset> Load();
@@ -34,6 +40,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<TimelineAsset> Load(int index);
     }
 
+    public interface IConditionalTimelineAssetsLoader
+    {
+        IEnumerable<TimelineAsset> Load(Func<TimelineAsset, bool> predicate);
+    }
+
     public interface IAsyncTimelineAssetLoader
     {
         UniTask<TimelineAsset> LoadAsync();
@@ -46,7 +57,12 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 
     public interface IAsyncIndexedTimelineAssetLoader
     {
-        UniTask<TimelineAsset> Load(int index);
+        UniTask<TimelineAsset> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalTimelineAssetLoader
+    {
+        UniTask<TimelineAsset> LoadAsync(Func<TimelineAsset, bool> predicate);
     }
 
     public interface IAsyncTimelineAssetsLoader
@@ -61,6 +77,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 
     public interface IAsyncIndexedTimelineAssetsLoader
     {
-        UniTask<IEnumerable<TimelineAsset>> Load(int index);
+        UniTask<IEnumerable<TimelineAsset>> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalTimelineAssetsLoader
+    {
+        UniTask<IEnumerable<TimelineAsset>> LoadAsync(Func<TimelineAsset, bool> predicate);
     }
 }

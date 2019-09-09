@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine.Video;
@@ -19,6 +20,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         VideoClip Load(int index);
     }
 
+    public interface IConditionalVideoClipLoader
+    {
+        VideoClip Load(Func<VideoClip, bool> predicate);
+    }
+
     public interface IVideoClipsLoader
     {
         IEnumerable<VideoClip> Load();
@@ -32,6 +38,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IIndexedVideoClipsLoader
     {
         IEnumerable<VideoClip> Load(int index);
+    }
+
+    public interface IConditionalVideoClipsLoader
+    {
+        IEnumerable<VideoClip> Load(Func<VideoClip, bool> predicate);
     }
 
     public interface IAsyncVideoClipLoader
@@ -49,6 +60,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<VideoClip> LoadAsync(int index);
     }
 
+    public interface IAsyncConditionalVideoClipLoader
+    {
+        UniTask<VideoClip> LoadAsync(Func<VideoClip, bool> predicate);
+    }
+
     public interface IAsyncVideoClipsLoader
     {
         UniTask<IEnumerable<VideoClip>> LoadAsync();
@@ -62,5 +78,10 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IAsyncIndexedVideoClipsLoader
     {
         UniTask<IEnumerable<VideoClip>> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalVideoClipsLoader
+    {
+        UniTask<IEnumerable<VideoClip>> LoadAsync(Func<VideoClip, bool> predicate);
     }
 }

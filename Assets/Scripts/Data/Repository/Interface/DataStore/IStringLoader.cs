@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx.Async;
 
@@ -18,6 +19,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         string Load(int index);
     }
 
+    public interface IConditionalStringLoader
+    {
+        string Load(Func<string, bool> predicate);
+    }
+
     public interface IStringsLoader
     {
         IEnumerable<string> Load();
@@ -31,6 +37,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IIndexedStringsLoader
     {
         IEnumerable<string> Load(int index);
+    }
+
+    public interface IConditionalStringsLoader
+    {
+        IEnumerable<string> Load(Func<string, bool> predicate);
     }
 
     public interface IAsyncStringLoader
@@ -48,6 +59,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<string> LoadAsync(int index);
     }
 
+    public interface IAsyncConditionalStringLoader
+    {
+        UniTask<string> LoadAsync(Func<string, bool> predicate);
+    }
+
     public interface IAsyncStringsLoader
     {
         UniTask<IEnumerable<string>> LoadAsync();
@@ -61,5 +77,10 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IAsyncIndexedStringsLoader
     {
         UniTask<IEnumerable<string>> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalStringsLoader
+    {
+        UniTask<IEnumerable<string>> LoadAsync(Func<string, bool> predicate);
     }
 }

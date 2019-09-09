@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         AudioClip Load(int index);
     }
 
+    public interface IConditionalAudioClipLoader
+    {
+        AudioClip Load(Func<AudioClip, bool> predicate);
+    }
+
     public interface IAudioClipsLoader
     {
         IEnumerable<AudioClip> Load();
@@ -34,6 +40,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<AudioClip> Load(int index);
     }
 
+    public interface IConditionalAudioClipsLoader
+    {
+        IEnumerable<AudioClip> Load(Func<AudioClip, bool> predicate);
+    }
+
     public interface IAsyncAudioClipLoader
     {
         UniTask<AudioClip> LoadAsync();
@@ -46,7 +57,12 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 
     public interface IAsyncIndexedAudioClipLoader
     {
-        UniTask<AudioClip> Load(int index);
+        UniTask<AudioClip> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalAudioClipLoader
+    {
+        UniTask<AudioClip> LoadAsync(Func<AudioClip, bool> predicate);
     }
 
     public interface IAsyncAudioClipsLoader
@@ -61,6 +77,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 
     public interface IAsyncIndexedAudioClipsLoader
     {
-        UniTask<IEnumerable<AudioClip>> Load(int index);
+        UniTask<IEnumerable<AudioClip>> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalAudioClipsLoader
+    {
+        UniTask<IEnumerable<AudioClip>> LoadAsync(Func<AudioClip, bool> predicate);
     }
 }

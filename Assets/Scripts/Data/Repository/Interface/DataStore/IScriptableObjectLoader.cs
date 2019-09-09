@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         TValue Load(int index);
     }
 
+    public interface IConditionalScriptableObjectLoader<out TValue>
+    {
+        TValue Load(Func<TValue, bool> predicate);
+    }
+
     public interface IScriptableObjectsLoader<out TValue> where TValue : ScriptableObject
     {
         IEnumerable<TValue> Load();
@@ -32,6 +38,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IIndexedScriptableObjectsLoader<out TValue> where TValue : ScriptableObject
     {
         IEnumerable<TValue> Load(int index);
+    }
+
+    public interface IConditionalScriptableObjectsLoader<out TValue>
+    {
+        IEnumerable<TValue> Load(Func<TValue, bool> predicate);
     }
 
     public interface IAsyncScriptableObjectLoader<TValue> where TValue : ScriptableObject
@@ -49,6 +60,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<TValue> LoadAsync(int index);
     }
 
+    public interface IAsyncConditionalScriptableObjectLoader<TValue>
+    {
+        UniTask<TValue> LoadAsync(Func<TValue, bool> predicate);
+    }
+
     public interface IAsyncScriptableObjectsLoader<TValue> where TValue : ScriptableObject
     {
         UniTask<IEnumerable<TValue>> LoadAsync();
@@ -62,5 +78,10 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IAsyncIndexedScriptableObjectsLoader<TValue> where TValue : ScriptableObject
     {
         UniTask<IEnumerable<TValue>> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalScriptableObjectsLoader<TValue>
+    {
+        UniTask<IEnumerable<TValue>> LoadAsync(Func<TValue, bool> predicate);
     }
 }

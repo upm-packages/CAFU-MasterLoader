@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
 
@@ -19,6 +20,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         Sprite Load(int index);
     }
 
+    public interface IConditionalSpriteLoader
+    {
+        Sprite Load(Func<Sprite, bool> predicate);
+    }
+
     public interface ISpritesLoader
     {
         IEnumerable<Sprite> Load();
@@ -32,6 +38,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IIndexedSpritesLoader
     {
         IEnumerable<Sprite> Load(int index);
+    }
+
+    public interface IConditionalSpritesLoader
+    {
+        IEnumerable<Sprite> Load(Func<Sprite, bool> predicate);
     }
 
     public interface IAsyncSpriteLoader
@@ -49,6 +60,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<Sprite> LoadAsync(int index);
     }
 
+    public interface IAsyncConditionalSpriteLoader
+    {
+        UniTask<Sprite> LoadAsync(Func<Sprite, bool> predicate);
+    }
+
     public interface IAsyncSpritesLoader
     {
         UniTask<IEnumerable<Sprite>> LoadAsync();
@@ -63,5 +79,9 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     {
         UniTask<IEnumerable<Sprite>> LoadAsync(int index);
     }
-}
 
+    public interface IAsyncConditionalSpritesLoader
+    {
+        UniTask<IEnumerable<Sprite>> LoadAsync(Func<Sprite, bool> predicate);
+    }
+}

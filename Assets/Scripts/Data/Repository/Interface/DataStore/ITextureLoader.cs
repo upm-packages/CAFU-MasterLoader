@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         Texture Load(int index);
     }
 
+    public interface IConditionalTextureLoader
+    {
+        Texture Load(Func<Texture, bool> predicate);
+    }
+
     public interface ITexturesLoader
     {
         IEnumerable<Texture> Load();
@@ -34,6 +40,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<Texture> Load(int index);
     }
 
+    public interface IConditionalTexturesLoader
+    {
+        IEnumerable<Texture> Load(Func<Texture, bool> predicate);
+    }
+
     public interface IAsyncTextureLoader
     {
         UniTask<Texture> LoadAsync();
@@ -46,7 +57,12 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 
     public interface IAsyncIndexedTextureLoader
     {
-        UniTask<Texture> Load(int index);
+        UniTask<Texture> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalTextureLoader
+    {
+        UniTask<Texture> LoadAsync(Func<Texture, bool> predicate);
     }
 
     public interface IAsyncTexturesLoader
@@ -61,6 +77,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 
     public interface IAsyncIndexedTexturesLoader
     {
-        UniTask<IEnumerable<Texture>> Load(int index);
+        UniTask<IEnumerable<Texture>> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalTexturesLoader
+    {
+        UniTask<IEnumerable<Texture>> LoadAsync(Func<Texture, bool> predicate);
     }
 }

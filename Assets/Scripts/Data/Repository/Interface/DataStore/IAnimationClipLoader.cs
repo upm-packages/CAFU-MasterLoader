@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         AnimationClip Load(int index);
     }
 
+    public interface IConditionalAnimationClipLoader
+    {
+        AnimationClip Load(Func<AnimationClip, bool> predicate);
+    }
+
     public interface IAnimationClipsLoader
     {
         IEnumerable<AnimationClip> Load();
@@ -34,6 +40,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<AnimationClip> Load(int index);
     }
 
+    public interface IConditionalAnimationClipsLoader
+    {
+        IEnumerable<AnimationClip> Load(Func<AnimationClip, bool> predicate);
+    }
+
     public interface IAsyncAnimationClipLoader
     {
         UniTask<AnimationClip> LoadAsync();
@@ -46,7 +57,12 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 
     public interface IAsyncIndexedAnimationClipLoader
     {
-        UniTask<AnimationClip> Load(int index);
+        UniTask<AnimationClip> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalAnimationClipLoader
+    {
+        UniTask<AnimationClip> LoadAsync(Func<AnimationClip, bool> predicate);
     }
 
     public interface IAsyncAnimationClipsLoader
@@ -61,6 +77,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 
     public interface IAsyncIndexedAnimationClipsLoader
     {
-        UniTask<IEnumerable<AnimationClip>> Load(int index);
+        UniTask<IEnumerable<AnimationClip>> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalAnimationClipsLoader
+    {
+        UniTask<IEnumerable<AnimationClip>> LoadAsync(Func<AnimationClip, bool> predicate);
     }
 }
