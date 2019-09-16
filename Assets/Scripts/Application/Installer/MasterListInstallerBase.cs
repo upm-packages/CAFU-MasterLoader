@@ -1,13 +1,14 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 
 namespace CAFU.MasterLoader.Application.Installer
 {
-    public abstract class MasterListInstallerBase<T> : MonoInstaller<MasterListInstallerBase<T>>
+    public abstract class MasterListInstallerBase<T> : ScriptableObjectInstaller<MasterListInstallerBase<T>>
     {
         [SerializeField] private List<T> masters = default;
-        private IEnumerable<T> Masters => masters;
+        [UsedImplicitly] public IEnumerable<T> Masters => masters;
 
         public override void InstallBindings()
         {
