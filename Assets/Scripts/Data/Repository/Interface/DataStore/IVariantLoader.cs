@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx.Async;
 
@@ -18,6 +19,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         TValue Load(int index);
     }
 
+    public interface IConditionalVariantLoader<out TValue>
+    {
+        TValue Load(Func<TValue, bool> predicate);
+    }
+
     public interface IVariantsLoader<out TValue>
     {
         IEnumerable<TValue> Load();
@@ -31,6 +37,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IIndexedVariantsLoader<out TValue>
     {
         IEnumerable<TValue> Load(int index);
+    }
+
+    public interface IConditionalVariantsLoader<out TValue>
+    {
+        IEnumerable<TValue> Load(Func<TValue, bool> predicate);
     }
 
     public interface IAsyncVariantLoader<TValue>
@@ -48,6 +59,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<TValue> LoadAsync(int index);
     }
 
+    public interface IAsyncConditionalVariantLoader<TValue>
+    {
+        UniTask<TValue> LoadAsync(Func<TValue, bool> predicate);
+    }
+
     public interface IAsyncVariantsLoader<TValue>
     {
         UniTask<IEnumerable<TValue>> LoadAsync();
@@ -61,5 +77,10 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IAsyncIndexedVariantsLoader<TValue>
     {
         UniTask<IEnumerable<TValue>> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalVariantsLoader<TValue>
+    {
+        UniTask<IEnumerable<TValue>> LoadAsync(Func<TValue, bool> predicate);
     }
 }

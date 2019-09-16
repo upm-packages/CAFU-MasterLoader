@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         Material Load(int index);
     }
 
+    public interface IConditionalMaterialLoader
+    {
+        Material Load(Func<Material, bool> predicate);
+    }
+
     public interface IMaterialsLoader
     {
         IEnumerable<Material> Load();
@@ -32,6 +38,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IIndexedMaterialsLoader
     {
         IEnumerable<Material> Load(int index);
+    }
+
+    public interface IConditionalMaterialsLoader
+    {
+        IEnumerable<Material> Load(Func<Material, bool> predicate);
     }
 
     public interface IAsyncMaterialLoader
@@ -49,6 +60,11 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<Material> LoadAsync(int index);
     }
 
+    public interface IAsyncConditionalMaterialLoader
+    {
+        UniTask<Material> LoadAsync(Func<Material, bool> predicate);
+    }
+
     public interface IAsyncMaterialsLoader
     {
         UniTask<IEnumerable<Material>> LoadAsync();
@@ -62,5 +78,10 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
     public interface IAsyncIndexedMaterialsLoader
     {
         UniTask<IEnumerable<Material>> LoadAsync(int index);
+    }
+
+    public interface IAsyncConditionalMaterialsLoader
+    {
+        UniTask<IEnumerable<Material>> LoadAsync(Func<Material, bool> predicate);
     }
 }
