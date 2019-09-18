@@ -1,87 +1,104 @@
-using System;
 using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
 
+// ReSharper disable UnusedMember.Global
+
 namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 {
-    public interface IScriptableObjectLoader<out TValue> where TValue : ScriptableObject
+    #region Basic
+
+    public interface IScriptableObjectLoader
     {
-        TValue Load();
+        ScriptableObject Load();
     }
 
-    public interface IScriptableObjectLoader<in TKey, out TValue> where TValue : ScriptableObject
+    public interface IScriptableObjectsLoader
     {
-        TValue Load(TKey key);
+        IEnumerable<ScriptableObject> Load();
     }
 
-    public interface IIndexedScriptableObjectLoader<out TValue> where TValue : ScriptableObject
+    public interface IAsyncScriptableObjectLoader
     {
-        TValue Load(int index);
+        UniTask<ScriptableObject> LoadAsync();
     }
 
-    public interface IConditionalScriptableObjectLoader<out TValue>
+    public interface IAsyncScriptableObjectsLoader
     {
-        TValue Load(Func<TValue, bool> predicate);
+        UniTask<IEnumerable<ScriptableObject>> LoadAsync();
     }
 
-    public interface IScriptableObjectsLoader<out TValue> where TValue : ScriptableObject
+    #endregion
+
+    #region Indexed
+
+    public interface IIndexedScriptableObjectLoader
     {
-        IEnumerable<TValue> Load();
+        ScriptableObject Load(int index);
     }
 
-    public interface IScriptableObjectsLoader<in TKey, out TValue> where TValue : ScriptableObject
+    public interface IIndexedScriptableObjectsLoader
     {
-        IEnumerable<TValue> Load(TKey key);
+        IEnumerable<ScriptableObject> Load(int index);
     }
 
-    public interface IIndexedScriptableObjectsLoader<out TValue> where TValue : ScriptableObject
+    public interface IAsyncIndexedScriptableObjectLoader
     {
-        IEnumerable<TValue> Load(int index);
+        UniTask<ScriptableObject> LoadAsync(int index);
     }
 
-    public interface IConditionalScriptableObjectsLoader<out TValue>
+    public interface IAsyncIndexedScriptableObjectsLoader
     {
-        IEnumerable<TValue> Load(Func<TValue, bool> predicate);
+        UniTask<IEnumerable<ScriptableObject>> LoadAsync(int index);
     }
 
-    public interface IAsyncScriptableObjectLoader<TValue> where TValue : ScriptableObject
+    #endregion
+
+    #region Conditional
+
+    public interface IConditionalScriptableObjectLoader
     {
-        UniTask<TValue> LoadAsync();
+        ScriptableObject Load();
     }
 
-    public interface IAsyncScriptableObjectLoader<in TKey, TValue> where TValue : ScriptableObject
+    public interface IConditionalScriptableObjectsLoader
     {
-        UniTask<TValue> LoadAsync(TKey key);
+        IEnumerable<ScriptableObject> Load();
     }
 
-    public interface IAsyncIndexedScriptableObjectLoader<TValue> where TValue : ScriptableObject
+    public interface IAsyncConditionalScriptableObjectLoader
     {
-        UniTask<TValue> LoadAsync(int index);
+        UniTask<ScriptableObject> LoadAsync();
     }
 
-    public interface IAsyncConditionalScriptableObjectLoader<TValue>
+    public interface IAsyncConditionalScriptableObjectsLoader
     {
-        UniTask<TValue> LoadAsync(Func<TValue, bool> predicate);
+        UniTask<IEnumerable<ScriptableObject>> LoadAsync();
     }
 
-    public interface IAsyncScriptableObjectsLoader<TValue> where TValue : ScriptableObject
+    #endregion
+
+    #region Conditional (1 param)
+
+    public interface IConditionalScriptableObjectLoader<in TParam1>
     {
-        UniTask<IEnumerable<TValue>> LoadAsync();
+        ScriptableObject Load(TParam1 param1);
     }
 
-    public interface IAsyncScriptableObjectsLoader<in TKey, TValue> where TValue : ScriptableObject
+    public interface IConditionalScriptableObjectsLoader<in TParam1>
     {
-        UniTask<IEnumerable<TValue>> LoadAsync(TKey key);
+        IEnumerable<ScriptableObject> Load(TParam1 param1);
     }
 
-    public interface IAsyncIndexedScriptableObjectsLoader<TValue> where TValue : ScriptableObject
+    public interface IAsyncConditionalScriptableObjectLoader<in TParam1>
     {
-        UniTask<IEnumerable<TValue>> LoadAsync(int index);
+        UniTask<ScriptableObject> LoadAsync(TParam1 param1);
     }
 
-    public interface IAsyncConditionalScriptableObjectsLoader<TValue>
+    public interface IAsyncConditionalScriptableObjectsLoader<in TParam1>
     {
-        UniTask<IEnumerable<TValue>> LoadAsync(Func<TValue, bool> predicate);
+        UniTask<IEnumerable<ScriptableObject>> LoadAsync(TParam1 param1);
     }
+
+    #endregion
 }

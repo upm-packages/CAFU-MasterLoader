@@ -1,28 +1,16 @@
-using System;
 using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine.Timeline;
 
+// ReSharper disable UnusedMember.Global
+
 namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 {
+    #region Basic
+
     public interface ITimelineAssetLoader
     {
         TimelineAsset Load();
-    }
-
-    public interface ITimelineAssetLoader<in TKey>
-    {
-        TimelineAsset Load(TKey key);
-    }
-
-    public interface IIndexedTimelineAssetLoader
-    {
-        TimelineAsset Load(int index);
-    }
-
-    public interface IConditionalTimelineAssetLoader
-    {
-        TimelineAsset Load(Func<TimelineAsset, bool> predicate);
     }
 
     public interface ITimelineAssetsLoader
@@ -30,39 +18,9 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<TimelineAsset> Load();
     }
 
-    public interface ITimelineAssetsLoader<in TKey>
-    {
-        IEnumerable<TimelineAsset> Load(TKey key);
-    }
-
-    public interface IIndexedTimelineAssetsLoader
-    {
-        IEnumerable<TimelineAsset> Load(int index);
-    }
-
-    public interface IConditionalTimelineAssetsLoader
-    {
-        IEnumerable<TimelineAsset> Load(Func<TimelineAsset, bool> predicate);
-    }
-
     public interface IAsyncTimelineAssetLoader
     {
         UniTask<TimelineAsset> LoadAsync();
-    }
-
-    public interface IAsyncTimelineAssetLoader<in TKey>
-    {
-        UniTask<TimelineAsset> LoadAsync(TKey key);
-    }
-
-    public interface IAsyncIndexedTimelineAssetLoader
-    {
-        UniTask<TimelineAsset> LoadAsync(int index);
-    }
-
-    public interface IAsyncConditionalTimelineAssetLoader
-    {
-        UniTask<TimelineAsset> LoadAsync(Func<TimelineAsset, bool> predicate);
     }
 
     public interface IAsyncTimelineAssetsLoader
@@ -70,9 +28,23 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<IEnumerable<TimelineAsset>> LoadAsync();
     }
 
-    public interface IAsyncTimelineAssetsLoader<in TKey>
+    #endregion
+
+    #region Indexed
+
+    public interface IIndexedTimelineAssetLoader
     {
-        UniTask<IEnumerable<TimelineAsset>> LoadAsync(TKey key);
+        TimelineAsset Load(int index);
+    }
+
+    public interface IIndexedTimelineAssetsLoader
+    {
+        IEnumerable<TimelineAsset> Load(int index);
+    }
+
+    public interface IAsyncIndexedTimelineAssetLoader
+    {
+        UniTask<TimelineAsset> LoadAsync(int index);
     }
 
     public interface IAsyncIndexedTimelineAssetsLoader
@@ -80,8 +52,53 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<IEnumerable<TimelineAsset>> LoadAsync(int index);
     }
 
+    #endregion
+
+    #region Conditional
+
+    public interface IConditionalTimelineAssetLoader
+    {
+        TimelineAsset Load();
+    }
+
+    public interface IConditionalTimelineAssetsLoader
+    {
+        IEnumerable<TimelineAsset> Load();
+    }
+
+    public interface IAsyncConditionalTimelineAssetLoader
+    {
+        UniTask<TimelineAsset> LoadAsync();
+    }
+
     public interface IAsyncConditionalTimelineAssetsLoader
     {
-        UniTask<IEnumerable<TimelineAsset>> LoadAsync(Func<TimelineAsset, bool> predicate);
+        UniTask<IEnumerable<TimelineAsset>> LoadAsync();
     }
+
+    #endregion
+
+    #region Conditional (1 param)
+
+    public interface IConditionalTimelineAssetLoader<in TParam1>
+    {
+        TimelineAsset Load(TParam1 param1);
+    }
+
+    public interface IConditionalTimelineAssetsLoader<in TParam1>
+    {
+        IEnumerable<TimelineAsset> Load(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalTimelineAssetLoader<in TParam1>
+    {
+        UniTask<TimelineAsset> LoadAsync(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalTimelineAssetsLoader<in TParam1>
+    {
+        UniTask<IEnumerable<TimelineAsset>> LoadAsync(TParam1 param1);
+    }
+
+    #endregion
 }

@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
 
+// ReSharper disable UnusedMember.Global
+
 namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 {
+    #region Basic
+
     public interface ISpriteLoader
     {
         Sprite Load();
-    }
-
-    public interface ISpriteLoader<in TKey>
-    {
-        Sprite Load(TKey key);
-    }
-
-    public interface IIndexedSpriteLoader
-    {
-        Sprite Load(int index);
-    }
-
-    public interface IConditionalSpriteLoader
-    {
-        Sprite Load(Func<Sprite, bool> predicate);
     }
 
     public interface ISpritesLoader
@@ -30,39 +18,9 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<Sprite> Load();
     }
 
-    public interface ISpritesLoader<in TKey>
-    {
-        IEnumerable<Sprite> Load(TKey key);
-    }
-
-    public interface IIndexedSpritesLoader
-    {
-        IEnumerable<Sprite> Load(int index);
-    }
-
-    public interface IConditionalSpritesLoader
-    {
-        IEnumerable<Sprite> Load(Func<Sprite, bool> predicate);
-    }
-
     public interface IAsyncSpriteLoader
     {
         UniTask<Sprite> LoadAsync();
-    }
-
-    public interface IAsyncSpriteLoader<in TKey>
-    {
-        UniTask<Sprite> LoadAsync(TKey key);
-    }
-
-    public interface IAsyncIndexedSpriteLoader
-    {
-        UniTask<Sprite> LoadAsync(int index);
-    }
-
-    public interface IAsyncConditionalSpriteLoader
-    {
-        UniTask<Sprite> LoadAsync(Func<Sprite, bool> predicate);
     }
 
     public interface IAsyncSpritesLoader
@@ -70,9 +28,23 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<IEnumerable<Sprite>> LoadAsync();
     }
 
-    public interface IAsyncSpritesLoader<in TKey>
+    #endregion
+
+    #region Indexed
+
+    public interface IIndexedSpriteLoader
     {
-        UniTask<IEnumerable<Sprite>> LoadAsync(TKey key);
+        Sprite Load(int index);
+    }
+
+    public interface IIndexedSpritesLoader
+    {
+        IEnumerable<Sprite> Load(int index);
+    }
+
+    public interface IAsyncIndexedSpriteLoader
+    {
+        UniTask<Sprite> LoadAsync(int index);
     }
 
     public interface IAsyncIndexedSpritesLoader
@@ -80,8 +52,53 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<IEnumerable<Sprite>> LoadAsync(int index);
     }
 
+    #endregion
+
+    #region Conditional
+
+    public interface IConditionalSpriteLoader
+    {
+        Sprite Load();
+    }
+
+    public interface IConditionalSpritesLoader
+    {
+        IEnumerable<Sprite> Load();
+    }
+
+    public interface IAsyncConditionalSpriteLoader
+    {
+        UniTask<Sprite> LoadAsync();
+    }
+
     public interface IAsyncConditionalSpritesLoader
     {
-        UniTask<IEnumerable<Sprite>> LoadAsync(Func<Sprite, bool> predicate);
+        UniTask<IEnumerable<Sprite>> LoadAsync();
     }
+
+    #endregion
+
+    #region Conditional (1 param)
+
+    public interface IConditionalSpriteLoader<in TParam1>
+    {
+        Sprite Load(TParam1 param1);
+    }
+
+    public interface IConditionalSpritesLoader<in TParam1>
+    {
+        IEnumerable<Sprite> Load(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalSpriteLoader<in TParam1>
+    {
+        UniTask<Sprite> LoadAsync(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalSpritesLoader<in TParam1>
+    {
+        UniTask<IEnumerable<Sprite>> LoadAsync(TParam1 param1);
+    }
+
+    #endregion
 }
