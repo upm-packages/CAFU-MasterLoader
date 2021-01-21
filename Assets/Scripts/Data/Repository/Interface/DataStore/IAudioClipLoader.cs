@@ -2,21 +2,15 @@ using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
 
+// ReSharper disable UnusedMember.Global
+
 namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 {
+    #region Basic
+
     public interface IAudioClipLoader
     {
         AudioClip Load();
-    }
-
-    public interface IAudioClipLoader<in TKey>
-    {
-        AudioClip Load(TKey key);
-    }
-
-    public interface IIndexedAudioClipLoader
-    {
-        AudioClip Load(int index);
     }
 
     public interface IAudioClipsLoader
@@ -24,29 +18,9 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<AudioClip> Load();
     }
 
-    public interface IAudioClipsLoader<in TKey>
-    {
-        IEnumerable<AudioClip> Load(TKey key);
-    }
-
-    public interface IIndexedAudioClipsLoader
-    {
-        IEnumerable<AudioClip> Load(int index);
-    }
-
     public interface IAsyncAudioClipLoader
     {
         UniTask<AudioClip> LoadAsync();
-    }
-
-    public interface IAsyncAudioClipLoader<in TKey>
-    {
-        UniTask<AudioClip> LoadAsync(TKey key);
-    }
-
-    public interface IAsyncIndexedAudioClipLoader
-    {
-        UniTask<AudioClip> Load(int index);
     }
 
     public interface IAsyncAudioClipsLoader
@@ -54,13 +28,77 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<IEnumerable<AudioClip>> LoadAsync();
     }
 
-    public interface IAsyncAudioClipsLoader<in TKey>
+    #endregion
+
+    #region Indexed
+
+    public interface IIndexedAudioClipLoader
     {
-        UniTask<IEnumerable<AudioClip>> LoadAsync(TKey key);
+        AudioClip Load(int index);
+    }
+
+    public interface IIndexedAudioClipsLoader
+    {
+        IEnumerable<AudioClip> Load(int index);
+    }
+
+    public interface IAsyncIndexedAudioClipLoader
+    {
+        UniTask<AudioClip> LoadAsync(int index);
     }
 
     public interface IAsyncIndexedAudioClipsLoader
     {
-        UniTask<IEnumerable<AudioClip>> Load(int index);
+        UniTask<IEnumerable<AudioClip>> LoadAsync(int index);
     }
+
+    #endregion
+
+    #region Conditional
+
+    public interface IConditionalAudioClipLoader
+    {
+        AudioClip Load();
+    }
+
+    public interface IConditionalAudioClipsLoader
+    {
+        IEnumerable<AudioClip> Load();
+    }
+
+    public interface IAsyncConditionalAudioClipLoader
+    {
+        UniTask<AudioClip> LoadAsync();
+    }
+
+    public interface IAsyncConditionalAudioClipsLoader
+    {
+        UniTask<IEnumerable<AudioClip>> LoadAsync();
+    }
+
+    #endregion
+
+    #region Conditional (1 param)
+
+    public interface IConditionalAudioClipLoader<in TParam1>
+    {
+        AudioClip Load(TParam1 param1);
+    }
+
+    public interface IConditionalAudioClipsLoader<in TParam1>
+    {
+        IEnumerable<AudioClip> Load(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalAudioClipLoader<in TParam1>
+    {
+        UniTask<AudioClip> LoadAsync(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalAudioClipsLoader<in TParam1>
+    {
+        UniTask<IEnumerable<AudioClip>> LoadAsync(TParam1 param1);
+    }
+
+    #endregion
 }

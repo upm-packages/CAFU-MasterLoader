@@ -2,65 +2,103 @@ using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
 
+// ReSharper disable UnusedMember.Global
+
 namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 {
-    public interface IScriptableObjectLoader<out TValue> where TValue : ScriptableObject
+    #region Basic
+
+    public interface IScriptableObjectLoader
     {
-        TValue Load();
+        ScriptableObject Load();
     }
 
-    public interface IScriptableObjectLoader<in TKey, out TValue> where TValue : ScriptableObject
+    public interface IScriptableObjectsLoader
     {
-        TValue Load(TKey key);
+        IEnumerable<ScriptableObject> Load();
     }
 
-    public interface IIndexedScriptableObjectLoader<out TValue> where TValue : ScriptableObject
+    public interface IAsyncScriptableObjectLoader
     {
-        TValue Load(int index);
+        UniTask<ScriptableObject> LoadAsync();
     }
 
-    public interface IScriptableObjectsLoader<out TValue> where TValue : ScriptableObject
+    public interface IAsyncScriptableObjectsLoader
     {
-        IEnumerable<TValue> Load();
+        UniTask<IEnumerable<ScriptableObject>> LoadAsync();
     }
 
-    public interface IScriptableObjectsLoader<in TKey, out TValue> where TValue : ScriptableObject
+    #endregion
+
+    #region Indexed
+
+    public interface IIndexedScriptableObjectLoader
     {
-        IEnumerable<TValue> Load(TKey key);
+        ScriptableObject Load(int index);
     }
 
-    public interface IIndexedScriptableObjectsLoader<out TValue> where TValue : ScriptableObject
+    public interface IIndexedScriptableObjectsLoader
     {
-        IEnumerable<TValue> Load(int index);
+        IEnumerable<ScriptableObject> Load(int index);
     }
 
-    public interface IAsyncScriptableObjectLoader<TValue> where TValue : ScriptableObject
+    public interface IAsyncIndexedScriptableObjectLoader
     {
-        UniTask<TValue> LoadAsync();
+        UniTask<ScriptableObject> LoadAsync(int index);
     }
 
-    public interface IAsyncScriptableObjectLoader<in TKey, TValue> where TValue : ScriptableObject
+    public interface IAsyncIndexedScriptableObjectsLoader
     {
-        UniTask<TValue> LoadAsync(TKey key);
+        UniTask<IEnumerable<ScriptableObject>> LoadAsync(int index);
     }
 
-    public interface IAsyncIndexedScriptableObjectLoader<TValue> where TValue : ScriptableObject
+    #endregion
+
+    #region Conditional
+
+    public interface IConditionalScriptableObjectLoader
     {
-        UniTask<TValue> LoadAsync(int index);
+        ScriptableObject Load();
     }
 
-    public interface IAsyncScriptableObjectsLoader<TValue> where TValue : ScriptableObject
+    public interface IConditionalScriptableObjectsLoader
     {
-        UniTask<IEnumerable<TValue>> LoadAsync();
+        IEnumerable<ScriptableObject> Load();
     }
 
-    public interface IAsyncScriptableObjectsLoader<in TKey, TValue> where TValue : ScriptableObject
+    public interface IAsyncConditionalScriptableObjectLoader
     {
-        UniTask<IEnumerable<TValue>> LoadAsync(TKey key);
+        UniTask<ScriptableObject> LoadAsync();
     }
 
-    public interface IAsyncIndexedScriptableObjectsLoader<TValue> where TValue : ScriptableObject
+    public interface IAsyncConditionalScriptableObjectsLoader
     {
-        UniTask<IEnumerable<TValue>> LoadAsync(int index);
+        UniTask<IEnumerable<ScriptableObject>> LoadAsync();
     }
+
+    #endregion
+
+    #region Conditional (1 param)
+
+    public interface IConditionalScriptableObjectLoader<in TParam1>
+    {
+        ScriptableObject Load(TParam1 param1);
+    }
+
+    public interface IConditionalScriptableObjectsLoader<in TParam1>
+    {
+        IEnumerable<ScriptableObject> Load(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalScriptableObjectLoader<in TParam1>
+    {
+        UniTask<ScriptableObject> LoadAsync(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalScriptableObjectsLoader<in TParam1>
+    {
+        UniTask<IEnumerable<ScriptableObject>> LoadAsync(TParam1 param1);
+    }
+
+    #endregion
 }

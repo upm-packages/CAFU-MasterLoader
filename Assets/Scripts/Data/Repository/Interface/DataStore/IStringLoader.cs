@@ -1,21 +1,15 @@
 using System.Collections.Generic;
 using UniRx.Async;
 
+// ReSharper disable UnusedMember.Global
+
 namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 {
+    #region Basic
+
     public interface IStringLoader
     {
         string Load();
-    }
-
-    public interface IStringLoader<in TKey>
-    {
-        string Load(TKey key);
-    }
-
-    public interface IIndexedStringLoader
-    {
-        string Load(int index);
     }
 
     public interface IStringsLoader
@@ -23,29 +17,9 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<string> Load();
     }
 
-    public interface IStringsLoader<in TKey>
-    {
-        IEnumerable<string> Load(TKey key);
-    }
-
-    public interface IIndexedStringsLoader
-    {
-        IEnumerable<string> Load(int index);
-    }
-
     public interface IAsyncStringLoader
     {
         UniTask<string> LoadAsync();
-    }
-
-    public interface IAsyncStringLoader<in TKey>
-    {
-        UniTask<string> LoadAsync(TKey key);
-    }
-
-    public interface IAsyncIndexedStringLoader
-    {
-        UniTask<string> LoadAsync(int index);
     }
 
     public interface IAsyncStringsLoader
@@ -53,13 +27,77 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<IEnumerable<string>> LoadAsync();
     }
 
-    public interface IAsyncStringsLoader<in TKey>
+    #endregion
+
+    #region Indexed
+
+    public interface IIndexedStringLoader
     {
-        UniTask<IEnumerable<string>> LoadAsync(TKey key);
+        string Load(int index);
+    }
+
+    public interface IIndexedStringsLoader
+    {
+        IEnumerable<string> Load(int index);
+    }
+
+    public interface IAsyncIndexedStringLoader
+    {
+        UniTask<string> LoadAsync(int index);
     }
 
     public interface IAsyncIndexedStringsLoader
     {
         UniTask<IEnumerable<string>> LoadAsync(int index);
     }
+
+    #endregion
+
+    #region Conditional
+
+    public interface IConditionalStringLoader
+    {
+        string Load();
+    }
+
+    public interface IConditionalStringsLoader
+    {
+        IEnumerable<string> Load();
+    }
+
+    public interface IAsyncConditionalStringLoader
+    {
+        UniTask<string> LoadAsync();
+    }
+
+    public interface IAsyncConditionalStringsLoader
+    {
+        UniTask<IEnumerable<string>> LoadAsync();
+    }
+
+    #endregion
+
+    #region Conditional (1 param)
+
+    public interface IConditionalStringLoader<in TParam1>
+    {
+        string Load(TParam1 param1);
+    }
+
+    public interface IConditionalStringsLoader<in TParam1>
+    {
+        IEnumerable<string> Load(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalStringLoader<in TParam1>
+    {
+        UniTask<string> LoadAsync(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalStringsLoader<in TParam1>
+    {
+        UniTask<IEnumerable<string>> LoadAsync(TParam1 param1);
+    }
+
+    #endregion
 }

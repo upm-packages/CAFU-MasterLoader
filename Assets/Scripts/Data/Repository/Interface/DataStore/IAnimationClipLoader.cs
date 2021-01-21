@@ -2,21 +2,15 @@ using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine;
 
+// ReSharper disable UnusedMember.Global
+
 namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 {
+    #region Basic
+
     public interface IAnimationClipLoader
     {
         AnimationClip Load();
-    }
-
-    public interface IAnimationClipLoader<in TKey>
-    {
-        AnimationClip Load(TKey key);
-    }
-
-    public interface IIndexedAnimationClipLoader
-    {
-        AnimationClip Load(int index);
     }
 
     public interface IAnimationClipsLoader
@@ -24,29 +18,9 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<AnimationClip> Load();
     }
 
-    public interface IAnimationClipsLoader<in TKey>
-    {
-        IEnumerable<AnimationClip> Load(TKey key);
-    }
-
-    public interface IIndexedAnimationClipsLoader
-    {
-        IEnumerable<AnimationClip> Load(int index);
-    }
-
     public interface IAsyncAnimationClipLoader
     {
         UniTask<AnimationClip> LoadAsync();
-    }
-
-    public interface IAsyncAnimationClipLoader<in TKey>
-    {
-        UniTask<AnimationClip> LoadAsync(TKey key);
-    }
-
-    public interface IAsyncIndexedAnimationClipLoader
-    {
-        UniTask<AnimationClip> Load(int index);
     }
 
     public interface IAsyncAnimationClipsLoader
@@ -54,13 +28,77 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<IEnumerable<AnimationClip>> LoadAsync();
     }
 
-    public interface IAsyncAnimationClipsLoader<in TKey>
+    #endregion
+
+    #region Indexed
+
+    public interface IIndexedAnimationClipLoader
     {
-        UniTask<IEnumerable<AnimationClip>> LoadAsync(TKey key);
+        AnimationClip Load(int index);
+    }
+
+    public interface IIndexedAnimationClipsLoader
+    {
+        IEnumerable<AnimationClip> Load(int index);
+    }
+
+    public interface IAsyncIndexedAnimationClipLoader
+    {
+        UniTask<AnimationClip> LoadAsync(int index);
     }
 
     public interface IAsyncIndexedAnimationClipsLoader
     {
-        UniTask<IEnumerable<AnimationClip>> Load(int index);
+        UniTask<IEnumerable<AnimationClip>> LoadAsync(int index);
     }
+
+    #endregion
+
+    #region Conditional
+
+    public interface IConditionalAnimationClipLoader
+    {
+        AnimationClip Load();
+    }
+
+    public interface IConditionalAnimationClipsLoader
+    {
+        IEnumerable<AnimationClip> Load();
+    }
+
+    public interface IAsyncConditionalAnimationClipLoader
+    {
+        UniTask<AnimationClip> LoadAsync();
+    }
+
+    public interface IAsyncConditionalAnimationClipsLoader
+    {
+        UniTask<IEnumerable<AnimationClip>> LoadAsync();
+    }
+
+    #endregion
+
+    #region Conditional (1 param)
+
+    public interface IConditionalAnimationClipLoader<in TParam1>
+    {
+        AnimationClip Load(TParam1 param1);
+    }
+
+    public interface IConditionalAnimationClipsLoader<in TParam1>
+    {
+        IEnumerable<AnimationClip> Load(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalAnimationClipLoader<in TParam1>
+    {
+        UniTask<AnimationClip> LoadAsync(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalAnimationClipsLoader<in TParam1>
+    {
+        UniTask<IEnumerable<AnimationClip>> LoadAsync(TParam1 param1);
+    }
+
+    #endregion
 }

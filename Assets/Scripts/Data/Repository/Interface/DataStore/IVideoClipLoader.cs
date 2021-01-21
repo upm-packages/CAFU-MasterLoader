@@ -2,21 +2,15 @@ using System.Collections.Generic;
 using UniRx.Async;
 using UnityEngine.Video;
 
+// ReSharper disable UnusedMember.Global
+
 namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
 {
+    #region Basic
+
     public interface IVideoClipLoader
     {
         VideoClip Load();
-    }
-
-    public interface IVideoClipLoader<in TKey>
-    {
-        VideoClip Load(TKey key);
-    }
-
-    public interface IIndexedVideoClipLoader
-    {
-        VideoClip Load(int index);
     }
 
     public interface IVideoClipsLoader
@@ -24,29 +18,9 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         IEnumerable<VideoClip> Load();
     }
 
-    public interface IVideoClipsLoader<in TKey>
-    {
-        IEnumerable<VideoClip> Load(TKey key);
-    }
-
-    public interface IIndexedVideoClipsLoader
-    {
-        IEnumerable<VideoClip> Load(int index);
-    }
-
     public interface IAsyncVideoClipLoader
     {
         UniTask<VideoClip> LoadAsync();
-    }
-
-    public interface IAsyncVideoClipLoader<in TKey>
-    {
-        UniTask<VideoClip> LoadAsync(TKey key);
-    }
-
-    public interface IAsyncIndexedVideoClipLoader
-    {
-        UniTask<VideoClip> LoadAsync(int index);
     }
 
     public interface IAsyncVideoClipsLoader
@@ -54,13 +28,77 @@ namespace CAFU.MasterLoader.Data.Repository.Interface.DataStore
         UniTask<IEnumerable<VideoClip>> LoadAsync();
     }
 
-    public interface IAsyncVideoClipsLoader<in TKey>
+    #endregion
+
+    #region Indexed
+
+    public interface IIndexedVideoClipLoader
     {
-        UniTask<IEnumerable<VideoClip>> LoadAsync(TKey key);
+        VideoClip Load(int index);
+    }
+
+    public interface IIndexedVideoClipsLoader
+    {
+        IEnumerable<VideoClip> Load(int index);
+    }
+
+    public interface IAsyncIndexedVideoClipLoader
+    {
+        UniTask<VideoClip> LoadAsync(int index);
     }
 
     public interface IAsyncIndexedVideoClipsLoader
     {
         UniTask<IEnumerable<VideoClip>> LoadAsync(int index);
     }
+
+    #endregion
+
+    #region Conditional
+
+    public interface IConditionalVideoClipLoader
+    {
+        VideoClip Load();
+    }
+
+    public interface IConditionalVideoClipsLoader
+    {
+        IEnumerable<VideoClip> Load();
+    }
+
+    public interface IAsyncConditionalVideoClipLoader
+    {
+        UniTask<VideoClip> LoadAsync();
+    }
+
+    public interface IAsyncConditionalVideoClipsLoader
+    {
+        UniTask<IEnumerable<VideoClip>> LoadAsync();
+    }
+
+    #endregion
+
+    #region Conditional (1 param)
+
+    public interface IConditionalVideoClipLoader<in TParam1>
+    {
+        VideoClip Load(TParam1 param1);
+    }
+
+    public interface IConditionalVideoClipsLoader<in TParam1>
+    {
+        IEnumerable<VideoClip> Load(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalVideoClipLoader<in TParam1>
+    {
+        UniTask<VideoClip> LoadAsync(TParam1 param1);
+    }
+
+    public interface IAsyncConditionalVideoClipsLoader<in TParam1>
+    {
+        UniTask<IEnumerable<VideoClip>> LoadAsync(TParam1 param1);
+    }
+
+    #endregion
 }
